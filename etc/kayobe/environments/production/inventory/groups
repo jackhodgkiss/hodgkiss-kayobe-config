@@ -12,7 +12,6 @@
 
 [container-image-builders:children]
 # Build container images on the seed by default.
-seed
 
 ###############################################################################
 # Infra VM groups.
@@ -78,7 +77,6 @@ compute
 # Hosts in this group will have a Docker Registry deployed. This group should
 # generally contain only a single host, to avoid deploying multiple independent
 # registries which may become unsynchronized.
-seed
 
 [ntp:children]
 # Kayobe will configure Chrony on members of this group.
