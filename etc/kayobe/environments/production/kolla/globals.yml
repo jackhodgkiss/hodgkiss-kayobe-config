@@ -1,2 +1,35 @@
 ---
-# Add extra Kolla global configuration here.
+cinder_backend_ceph: true
+
+glance_backend_ceph: true
+
+nova_backend_ceph: true
+
+neutron_plugin_agent: "ovn"
+
+openstack_service_workers: "2"
+
+openstack_service_rpc_workers: "2"
+
+neutron_dns_domain: "ntrnl.os.hodgkiss.cloud."
+
+designate_ns_record:
+  - "michael.ns.hodgkiss.cloud"
+  - "franklin.ns.hodgkiss.cloud"
+  - "trevor.ns.hodgkiss.cloud"
+
+# Expose all external API services on a single port.
+{% raw %}
+haproxy_single_external_frontend: true
+base_external_fqdn: "os.hodgkiss.cloud"
+cinder_external_fqdn: "volumes.{{ base_external_fqdn }}"
+designate_external_fqdn: "names.{{ base_external_fqdn }}"
+glance_external_fqdn: "images.{{ base_external_fqdn }}"
+horizon_external_fqdn: "horizon.{{ base_external_fqdn }}"
+keystone_external_fqdn: "identity.{{ base_external_fqdn }}"
+neutron_external_fqdn: "networks.{{ base_external_fqdn }}"
+nova_external_fqdn: "compute.{{ base_external_fqdn }}"
+nova_novncproxy_fqdn: "remote.{{ base_external_fqdn }}"
+placement_external_fqdn: "placement.{{ base_external_fqdn }}"
+skyline_console_external_fqdn: "skyline.{{ base_external_fqdn }}"
+{% endraw %}
