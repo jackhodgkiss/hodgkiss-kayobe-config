@@ -4,7 +4,7 @@
 
 # User with which to access the controllers via SSH during bootstrap, in order
 # to setup the Kayobe user account. Default is {{ os_distribution }}.
-#controller_bootstrap_user:
+controller_bootstrap_user: cloud-user
 
 ###############################################################################
 # Controller groups.
@@ -130,10 +130,18 @@
 #controller_lvm_group_data_lv_docker_volumes_fs:
 
 ###############################################################################
+# Controller node swap configuration.
+
+controller_swap:
+  - path: /swapfile
+    size_mb: 16384
+
+###############################################################################
 # Controller node sysctl configuration.
 
 # Dict of sysctl parameters to set.
-#controller_sysctl_parameters:
+controller_sysctl_parameters:
+  vm.swappiness: 10
 
 ###############################################################################
 # Controller node tuned configuration.

@@ -4,7 +4,7 @@
 
 # User with which to access the monitoring nodes via SSH during bootstrap, in
 # order to setup the Kayobe user account.
-#monitoring_bootstrap_user:
+monitoring_bootstrap_user: cloud-user
 
 ###############################################################################
 # Monitoring node network interface configuration.
@@ -76,10 +76,18 @@
 #monitoring_lvm_groups_extra:
 
 ###############################################################################
+# Monitoring node swap configuration.
+
+compute_swap:
+  - path: /swapfile
+    size_mb: 8192
+
+###############################################################################
 # Monitoring node sysctl configuration.
 
 # Dict of sysctl parameters to set.
-#monitoring_sysctl_parameters:
+monitoring_sysctl_parameters:
+  vm.swappiness: 10
 
 ###############################################################################
 # Monitoring node tuned configuration.

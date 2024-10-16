@@ -4,7 +4,7 @@
 
 # User with which to access the computes via SSH during bootstrap, in order
 # to setup the Kayobe user account. Default is {{ os_distribution }}.
-#compute_bootstrap_user:
+compute_bootstrap_user: cloud-user
 
 ###############################################################################
 # Compute network interface configuration.
@@ -101,10 +101,18 @@
 #compute_lvm_group_data_lv_docker_volumes_fs:
 
 ###############################################################################
+# Compute node swap configuration.
+
+compute_swap:
+  - path: /swapfile
+    size_mb: 2048
+
+###############################################################################
 # Compute node sysctl configuration.
 
 # Dict of sysctl parameters to set.
-#compute_sysctl_parameters:
+compute_sysctl_parameters:
+  vm.swappiness: 10
 
 ###############################################################################
 # Compute node tuned configuration.
