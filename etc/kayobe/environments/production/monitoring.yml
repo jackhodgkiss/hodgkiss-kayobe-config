@@ -78,7 +78,7 @@ monitoring_bootstrap_user: cloud-user
 ###############################################################################
 # Monitoring node swap configuration.
 
-compute_swap:
+monitoring_swap:
   - path: /swapfile
     size_mb: 8192
 
