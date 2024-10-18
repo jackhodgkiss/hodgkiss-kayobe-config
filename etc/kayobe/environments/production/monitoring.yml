@@ -125,5 +125,30 @@ monitoring_sysctl_parameters:
 #monitoring_firewalld_rules:
 
 ###############################################################################
+# Alert configuration
+
+# Threshold to trigger a LowMemory alert in Gibibytes (GiB). When the amount
+# of free memory is lower than this value an alert will be triggered.
+alertmanager_low_memory_threshold_gib: 1
+
+# Whether to raise an alert if any network bond is configured with a single
+# link. Change to false to disable this alert.
+alertmanager_warn_network_bond_single_link: true
+
+# Threshold to trigger an LowSwapSpace alert on swap space depletion (ratio).
+# When the ratio of free swap space is lower than each of these values, warning
+# and critical alerts will be triggered respectively.
+alertmanager_node_free_swap_warning_threshold_ratio: 0.25
+alertmanager_node_free_swap_critical_threshold_ratio: 0.1
+
+# Threshold to trigger an alert for dropped packets, measured in packets/s
+# averaged over 5 minutes.
+alertmanager_packet_drop_threshold: 1
+
+# Threshold to trigger an alert for packet receive/transmit errors, measured in
+# packets/s averaged over 5 minutes.
+alertmanager_packet_errors_threshold: 1
+
+###############################################################################
 # Dummy variable to allow Ansible to accept this file.
 workaround_ansible_issue_8743: yes
