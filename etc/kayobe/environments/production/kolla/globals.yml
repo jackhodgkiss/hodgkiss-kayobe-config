@@ -18,6 +18,20 @@ designate_ns_record:
   - "franklin.ns.hodgkiss.cloud"
   - "trevor.ns.hodgkiss.cloud"
 
+# Expose Prometheus server
+enable_prometheus_server_external: true
+
+# Set Ceph manager exporter endpoints
+{% if groups['mgrs'] | length > 0 %}
+prometheus_ceph_mgr_exporter_endpoints:
+{% for host in groups['mgrs'] %}
+  - "{{ admin_oc_net_name | net_ip(host) }}:9283"
+{% endfor %}
+{% endif %}
+
+# Use inventory hostnames as labels
+prometheus_instance_label: "{% raw %}{{ ansible_facts.hostname }}{% endraw %}"
+
 # Expose all external API services on a single port.
 {% raw %}
 haproxy_single_external_frontend: true
@@ -32,4 +46,8 @@ nova_external_fqdn: "compute.{{ base_external_fqdn }}"
 nova_novncproxy_fqdn: "remote.{{ base_external_fqdn }}"
 placement_external_fqdn: "placement.{{ base_external_fqdn }}"
 skyline_console_external_fqdn: "skyline.{{ base_external_fqdn }}"
+opensearch_dashboards_external_fqdn: "opensearch.{{ base_external_fqdn }}"
+prometheus_alertmanager_external_fqdn: "alerts.{{ base_external_fqdn }}"
+prometheus_external_fqdn: "prometheus.{{ base_external_fqdn }}"
+grafana_external_fqdn: "grafana.{{ base_external_fqdn }}"
 {% endraw %}
