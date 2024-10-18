@@ -320,7 +320,7 @@ kolla_enable_glance: true
 #kolla_enable_glance_image_cache:
 #kolla_enable_gnocchi:
 #kolla_enable_gnocchi_statsd:
-#kolla_enable_grafana:
+kolla_enable_grafana: true
 #kolla_enable_grafana_external:
 #kolla_enable_hacluster:
 #kolla_enable_haproxy:
@@ -413,7 +413,7 @@ kolla_enable_prometheus: true
 #kolla_enable_prometheus_alertmanager_external:
 #kolla_enable_prometheus_blackbox_exporter:
 #kolla_enable_prometheus_cadvisor:
-#kolla_enable_prometheus_ceph_mgr_exporter:
+kolla_enable_prometheus_ceph_mgr_exporter: true
 #kolla_enable_prometheus_elasticsearch_exporter:
 #kolla_enable_prometheus_etcd_integration:
 #kolla_enable_prometheus_fluentd_integration:
