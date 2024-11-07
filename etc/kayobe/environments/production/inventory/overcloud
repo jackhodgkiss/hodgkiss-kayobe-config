@@ -1,0 +1,24 @@
+# This host acts as the configuration management Ansible control host. This must be
+# localhost.
+localhost ansible_connection=local
+
+[controllers]
+ctrl-01.infra.os.hodgkiss.cloud
+
+[container-image-builders]
+ctrl-01.infra.os.hodgkiss.cloud
+
+[docker-registry]
+ctrl-01.infra.os.hodgkiss.cloud
+
+[monitoring]
+mntr-01.infra.os.hodgkiss.cloud
+
+[storage:children]
+ceph
+
+[compute]
+cmpt-01.infra.os.hodgkiss.cloud
+cmpt-02.infra.os.hodgkiss.cloud
+cmpt-03.infra.os.hodgkiss.cloud
+cmpt-04.infra.os.hodgkiss.cloud

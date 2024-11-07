@@ -1,0 +1,151 @@
+---
+###############################################################################
+# Cephadm deployment configuration.
+
+# Ceph release name.
+cephadm_ceph_release: "squid"
+
+# Ceph FSID.
+#cephadm_fsid:
+
+# Ceph container image.
+cephadm_image: "quay.io/ceph/ceph:{{ cephadm_image_tag }}"
+
+# Ceph container image tag.
+cephadm_image_tag: "v19.2.0"
+
+cephadm_custom_repos: true
+
+# Cephadm admin network interface.
+cephadm_admin_interface: "{{ admin_oc_net_name | net_interface }}"
+
+# Ceph public network interface.
+cephadm_public_interface: "{{ storage_net_name | net_interface }}"
+
+# Ceph public network subnet CIDR.
+cephadm_public_network: "{{ storage_net_name | net_cidr }}"
+
+# Ceph cluster network interface.
+cephadm_cluster_interface: "{{ storage_mgmt_net_name | net_interface }}"
+
+# Ceph cluster network subnet CIDR.
+cephadm_cluster_network: "{{ storage_mgmt_net_name | net_cidr }}"
+
+# Ceph OSD specification.
+cephadm_osd_spec:
+  service_type: osd
+  service_id: osd-ssd
+  placement:
+    host_pattern: "*"
+  data_devices:
+    all: true
+
+# Ceph enable dashboard module.
+cephadm_enable_dashboard: true
+
+cephadm_bootstrap_additional_parameters: "--allow-fqdn-hostname"
+
+###############################################################################
+# Ceph post-deployment configuration.
+
+# List of Ceph erasure coding profiles. See stackhpc.cephadm.ec_profiles role
+# for format.
+cephadm_ec_profiles: []
+
+# List of Ceph CRUSH rules. See stackhpc.cephadm.crush_rules role for format.
+cephadm_crush_rules: []
+
+# List of Ceph pools. See stackhpc.cephadm.pools role for format.
+cephadm_pools:
+  - name: backups
+    application: rbd
+    state: present
+  - name: images
+    application: rbd
+    state: present
+  - name: volumes
+    application: rbd
+    state: present
+  - name: vms
+    application: rbd
+    state: present
+
+# List of Cephx keys. See stackhpc.cephadm.keys role for format.
+cephadm_keys:
+  - name: client.cinder
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=volumes, profile rbd pool=vms, profile rbd-read-only pool=images"
+      mgr: "profile rbd pool=volumes, profile rbd pool=vms"
+    state: present
+  - name: client.cinder-backup
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=volumes, profile rbd pool=backups"
+      mgr: "profile rbd pool=volumes, profile rbd pool=backups"
+    state: present
+  - name: client.glance
+    caps:
+      mon: "profile rbd"
+      osd: "profile rbd pool=images"
+      mgr: "profile rbd pool=images"
+    state: present
+
+# A list of commands to pass to cephadm shell -- ceph. See
+# stackhpc.cephadm.commands for format. Pre commands run before the rest of the
+# post-deployment configuration, post commands run after the rest of the
+# post-deployment configuration.
+cephadm_commands_pre: "{{ cephadm_commands_pre_default + cephadm_commands_pre_extra }}"
+cephadm_commands_post: "{{ cephadm_commands_post_default + cephadm_commands_post_extra }}"
+
+cephadm_commands_pre_default: []
+cephadm_commands_pre_extra: []
+
+cephadm_commands_post_default: "{{ ['mgr module enable prometheus'] if kolla_enable_prometheus_ceph_mgr_exporter | default(False) | bool else [] }}"
+cephadm_commands_post_extra: []
+
+###############################################################################
+# Kolla Ceph auto-configuration.
+
+# List of Kolla Ansible services that require Ceph configuration files.
+kolla_ceph_services:
+  - name: cinder-backup
+    keys:
+      - client.cinder
+      - client.cinder-backup
+    required: "{{ kolla_ceph_cinder_backup_required | bool }}"
+  - name: cinder-volume
+    keys:
+      - client.cinder
+    required: "{{ kolla_ceph_cinder_volume_required | bool }}"
+  - name: glance
+    keys:
+      - client.glance
+    required: "{{ kolla_ceph_glance_required | bool }}"
+  - name: manila
+    keys:
+      - client.manila
+    required: "{{ kolla_ceph_manila_required | bool }}"
+  - name: nova
+    keys:
+      - client.cinder
+    required: "{{ kolla_ceph_nova_required | bool }}"
+
+# Whether to generate Ceph configuration for Cinder volume.
+kolla_ceph_cinder_volume_required: "{{ kolla_enable_cinder | bool }}"
+
+# Whether to generate Ceph configuration for Cinder backup.
+kolla_ceph_cinder_backup_required: "{{ kolla_enable_cinder_backup | default(true) | bool }}"
+
+# Whether to generate Ceph configuration for Glance.
+kolla_ceph_glance_required: "{{ kolla_enable_glance | bool }}"
+
+# Whether to generate Ceph configuration for Manila.
+kolla_ceph_manila_required: "{{ kolla_enable_manila | bool }}"
+
+# Whether to generate Ceph configuration for Nova.
+kolla_ceph_nova_required: "{{ kolla_enable_nova | bool }}"
+
+###############################################################################
+# Dummy variable to allow Ansible to accept this file.
+workaround_ansible_issue_8743: yes
