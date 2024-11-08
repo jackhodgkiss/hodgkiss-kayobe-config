@@ -113,6 +113,10 @@ compute_swap:
 # Dict of sysctl parameters to set.
 compute_sysctl_parameters:
   vm.swappiness: 10
+  net.ipv6.conf.all.forwarding: 1
+  net.ipv6.conf.all.accept_ra: 2
+  net.ipv6.conf.all.accept_redirects: 1
+  net.ipv6.conf.all.accept_source_route: 1
 
 ###############################################################################
 # Compute node tuned configuration.
