@@ -1,0 +1,49 @@
+admin_oc_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.0.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.0.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.0.5
+  cmpt-04.infra.os.hodgkiss.cloud: 10.0.0.6
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.0.1
+  mntr-01.infra.os.hodgkiss.cloud: 10.0.0.2
+cleaning_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.100.1
+external_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.40.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.40.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.40.5
+  cmpt-04.infra.os.hodgkiss.cloud: 10.0.40.6
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.40.1
+inspection_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.90.1
+internal_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.30.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.30.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.30.5
+  cmpt-04.infra.os.hodgkiss.cloud: 10.0.30.6
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.30.1
+  mntr-01.infra.os.hodgkiss.cloud: 10.0.30.2
+oob_wl_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.11.1
+provision_wl_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.21.1
+public_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.50.1
+  mntr-01.infra.os.hodgkiss.cloud: 10.0.50.2
+storage_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.70.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.70.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.70.5
+  cmpt-04.infra.os.hodgkiss.cloud: 10.0.70.6
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.70.1
+storage_mgmt_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.71.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.71.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.71.5
+swift_ips:
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.80.1
+tunnel_ips:
+  cmpt-01.infra.os.hodgkiss.cloud: 10.0.60.3
+  cmpt-02.infra.os.hodgkiss.cloud: 10.0.60.4
+  cmpt-03.infra.os.hodgkiss.cloud: 10.0.60.5
+  cmpt-04.infra.os.hodgkiss.cloud: 10.0.60.6
+  ctrl-01.infra.os.hodgkiss.cloud: 10.0.60.1
